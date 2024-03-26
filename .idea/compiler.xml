@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="com.dev" />
         <module name="server-final" />
+        <module name="server-side" />
       </profile>
     </annotationProcessing>
   </component>
@@ -15,6 +16,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="com.dev" options="-parameters" />
       <module name="server-final" options="-parameters" />
+      <module name="server-side" options="-parameters" />
     </option>
   </component>
 </project>

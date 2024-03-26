@@ -15,22 +15,17 @@ public class User {
     @Column
     private int id;
     @Column
-    private String picture;
-    @Column
     private String username;
 
     @Column
     private String token;
-    @Column
-    private String email;
 
 
 
-    public User(String username, String token,String email,String picture) {
+    public User(String username, String token) {
         this.username = username;
         this.token = token;
-        this.email=email;
-        this.picture=picture;
+
 
     }
 
@@ -38,13 +33,6 @@ public class User {
 
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 
     public int getId() {
         return id;
@@ -70,13 +58,7 @@ public class User {
         this.token = token;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
 
 }

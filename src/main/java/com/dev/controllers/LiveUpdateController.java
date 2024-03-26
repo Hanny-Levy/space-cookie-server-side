@@ -1,6 +1,6 @@
 package com.dev.controllers;
 
-import com.dev.objects.Song;
+
 import com.dev.objects.User;
 import com.dev.utils.Persist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 import static com.dev.utils.Constants.MINUTE;

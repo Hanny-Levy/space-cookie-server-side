@@ -1,30 +1,12 @@
 package com.dev.controllers;
 
-import com.dev.Models.FriendsDetailsModel;
-import com.dev.Models.UserDetailsModel;
 import com.dev.objects.User;
 import com.dev.responses.BasicResponse;
-import com.dev.responses.GetFriendsResponse;
 import com.dev.responses.LoginResponse;
-import com.dev.responses.SearchFriendResponse;
-import com.dev.utils.Errors;
 import com.dev.utils.Persist;
 import com.dev.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 import static com.dev.utils.Errors.*;
@@ -58,7 +40,7 @@ public class LoginController {
 
 
         @RequestMapping(value = "sign-up")
-    public BasicResponse signUp (String username, String password,String email,String imageUrl) {
+    public BasicResponse signUp (String username, String password) {
         BasicResponse basicResponse = new BasicResponse();
         boolean success = false;
         Integer errorCode = null;
@@ -67,7 +49,7 @@ public class LoginController {
                 if (utils.isStrongPassword(password)) {
                     User fromDb = persist.getUserByUsername(username);
                     if (fromDb == null) {
-                     User toAdd=new User(username,utils.createHash(username,password),email,imageUrl);
+                     User toAdd=new User(username,utils.createHash(username,password));
                         persist.saveUser(toAdd);
                         success = true;
                     } else {
@@ -118,15 +100,7 @@ public class LoginController {
       public int getUsersSize(){
         return persist.getAllUsers().size();
     }
-    @RequestMapping(value = "get-user-details-by-token" , method = RequestMethod.GET)
-    public UserDetailsModel getUsernameByToken(String token){
-        return persist.getUsernameByToke(token);
-    }
 
-    @RequestMapping(value = "get-user-picture-by-token" , method = RequestMethod.GET)
-    public String getUserPicByToken(String token){
-        return persist.getUsernameByToke(token).getPicture();
-    }
 
 }
 
