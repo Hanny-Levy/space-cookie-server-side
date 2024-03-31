@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -82,19 +83,17 @@ public class Persist {
 
 
 
-    public boolean isFollowing ( User other,List<User> allMyFriends){
-        boolean isFollowing =false;
-        if (allMyFriends.size()!=0)
-        for (User user : allMyFriends ) {
-            if (user.getId()==other.getId()){
-                isFollowing=true;
-                break;
-            }
-        }
-        return isFollowing;
+
+
+    public List<Recipe> getFavoritesRecipes(String token) {
+        //        User user = getUserByToken(token);
+        Session session = sessionFactory.openSession();
+        List <Recipe> recipes = session.createQuery("FROM Recipe WHERE user.token = :token")
+                .setParameter("token", token).list();
+
+        session.close();
+        return recipes;
     }
-
-
 
 
 

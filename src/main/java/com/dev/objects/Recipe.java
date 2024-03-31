@@ -32,6 +32,8 @@ public class Recipe {
         this.link = link;
         this.user = user;
     }
+    public Recipe() {
+    }
 
     public String getTitle() {
         return title;
