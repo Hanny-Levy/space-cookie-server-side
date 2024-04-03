@@ -53,7 +53,7 @@ public class RecipesPageController {
             success = true;
             List<Recipe> favRecipes = persist.getFavoritesRecipes(token) ;
             if (favRecipes==null){
-                System.out.println("nullllll");
+
             }else {
                 basicResponse=new FavoritesRecipesResponse(favRecipes);
 

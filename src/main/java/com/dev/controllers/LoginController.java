@@ -101,6 +101,15 @@ public class LoginController {
         return persist.getAllUsers().size();
     }
 
+    @RequestMapping(value = "get-username-by-token" , method = RequestMethod.GET)
+    public BasicResponse getUsersSize(String token){
+        BasicResponse response;
+        User user=persist.getUserByToken(token);
+        if (user!=null){
+            response=new LoginResponse(true,null, user.getUsername());
+        }else response=new BasicResponse(false,ERROR_USER_NOT_FOUND);
+        return response;
+    }
 
 }
 
