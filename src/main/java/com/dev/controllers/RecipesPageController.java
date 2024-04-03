@@ -53,17 +53,16 @@ public class RecipesPageController {
             success = true;
             List<Recipe> favRecipes = persist.getFavoritesRecipes(token) ;
             if (favRecipes==null){
-
+                 errorCode=ERROR_NO_FAV_RECIPES ;
             }else {
                 basicResponse=new FavoritesRecipesResponse(favRecipes);
-
             }
 
 
         }else {
             errorCode = ERROR_USER_NOT_FOUND;
-            basicResponse.setErrorCode(errorCode);
         }
+        basicResponse.setErrorCode(errorCode);
         basicResponse.setSuccess(success);
         return basicResponse ;
 
