@@ -8,6 +8,7 @@ public class Errors {
     public static final int ERROR_WRONG_LOGIN_DETAILS = 1004;
     public static final int ERROR_USER_NOT_FOUND = 1005;
     public static final int ERROR_NO_FAV_RECIPES = 1006;
+    public static final int ERROR_RECIPE_NOT_FOUND = 1007;
 
 //    public static final int IMAGE_UPLOAD_FAILED = 1012;
 

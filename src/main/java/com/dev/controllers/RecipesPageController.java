@@ -66,10 +66,25 @@ public class RecipesPageController {
         basicResponse.setSuccess(success);
         return basicResponse ;
 
-
-
     }
 
+
+    @RequestMapping(value = "get-recipe-by-id")
+    public Recipe foundRecipeById(int id){
+        return persist.findRecipeById(id);
+    }
+    @RequestMapping(value = "delete-recipe")
+    public BasicResponse deleteRecipe(int recipeId){
+        BasicResponse basicResponse;
+        Recipe recipeToDelete=persist.findRecipeById(recipeId);
+        if (recipeToDelete!=null){
+            persist.deleteRecipe(recipeToDelete);
+            basicResponse=new BasicResponse(true,null);
+        }else
+            basicResponse=new BasicResponse(false,ERROR_RECIPE_NOT_FOUND);
+
+        return basicResponse;
+    }
 
 
 

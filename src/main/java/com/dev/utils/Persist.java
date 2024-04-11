@@ -5,6 +5,7 @@ import com.dev.objects.Recipe;
 import com.dev.objects.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -95,7 +96,21 @@ public class Persist {
         return recipes;
     }
 
+    public void deleteRecipe(Recipe RecipeToDelete){
+        Session session = sessionFactory.openSession();
+        Transaction transaction=session.beginTransaction();
+        session.remove(RecipeToDelete);
+        transaction.commit();
+        session.close();
+    }
 
+    public Recipe findRecipeById(int id){
+        Session session = sessionFactory.openSession();
+        Recipe foundRecipe= (Recipe) session.createQuery("FROM Recipe where id = :id").setParameter("id",id).uniqueResult();
+        session.close();
+        return foundRecipe;
+
+    }
 
 
 }
