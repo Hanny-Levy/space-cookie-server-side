@@ -3,6 +3,9 @@ package com.dev.controllers;
 import com.dev.objects.User;
 import com.dev.responses.BasicResponse;
 import com.dev.responses.LoginResponse;
+import com.dev.responses.SecurityQuestionAnswerResponse;
+import com.dev.responses.SecurityQuestionResponse;
+import com.dev.utils.Errors;
 import com.dev.utils.Persist;
 import com.dev.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,24 +43,33 @@ public class LoginController {
 
 
         @RequestMapping(value = "sign-up")
-    public BasicResponse signUp (String username, String password) {
+    public BasicResponse signUp (String username, String password,int securityQuestionNumber,String answerSecurityQuestion) {
         BasicResponse basicResponse = new BasicResponse();
         boolean success = false;
         Integer errorCode = null;
         if (username != null) {
             if (password != null) {
-                if (utils.isStrongPassword(password)) {
-                    User fromDb = persist.getUserByUsername(username);
-                    if (fromDb == null) {
-                     User toAdd=new User(username,utils.createHash(username,password));
-                        persist.saveUser(toAdd);
-                        success = true;
-                    } else {
-                        errorCode = ERROR_USERNAME_ALREADY_EXISTS;
+                if (securityQuestionNumber!=0){
+                    if (answerSecurityQuestion!=null){
+                        if (utils.isStrongPassword(password)) {
+                            User fromDb = persist.getUserByUsername(username);
+                            if (fromDb == null) {
+                                User toAdd=new User(username,utils.createHash(username,password),securityQuestionNumber,answerSecurityQuestion);
+                                persist.saveUser(toAdd);
+                                success = true;
+                            } else {
+                                errorCode = ERROR_USERNAME_ALREADY_EXISTS;
+                            }
+                        } else {
+                            errorCode = ERROR_WEAK_PASSWORD;
+                        }
+                    }else {
+                        errorCode=ERROR_ANSWER_SECURITY_QUESTION_NOT_FOUND;
                     }
-                } else {
-                    errorCode = ERROR_WEAK_PASSWORD;
+                }else {
+                    errorCode= ERROR_SECURITY_QUESTION_NUMBER_IS_NOT_VALID;
                 }
+
             } else {
                 errorCode = ERROR_MISSING_PASSWORD;
             }
@@ -110,6 +122,30 @@ public class LoginController {
         }else response=new BasicResponse(false,ERROR_USER_NOT_FOUND);
         return response;
     }
+    @RequestMapping(value = "get-security-question-answer")
+        public BasicResponse getSecurityQuestionAnswer(String username){
+          BasicResponse basicResponse;
+            User user=persist.getUserByUsername(username);
+            if (user!=null){
+                basicResponse=new SecurityQuestionAnswerResponse(true,null,user.getAnswerSecurityQuestion());
+            }else
+                basicResponse=new BasicResponse(false, ERROR_USER_NOT_FOUND);
+          return basicResponse;
+        }
+    @RequestMapping(value = "get-security-question")
+    public BasicResponse getSecurityQuestion(String username){
+        BasicResponse basicResponse;
+        User user=persist.getUserByUsername(username);
+        if (user!=null){
+            basicResponse=new SecurityQuestionResponse(true,null,user.getSecurityQuestionNumber());
+        }else
+            basicResponse=new BasicResponse(false, ERROR_USER_NOT_FOUND);
+        return basicResponse;
+    }
+
+
+
+
 
 }
 

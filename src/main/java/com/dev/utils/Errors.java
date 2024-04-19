@@ -9,6 +9,8 @@ public class Errors {
     public static final int ERROR_USER_NOT_FOUND = 1005;
     public static final int ERROR_NO_FAV_RECIPES = 1006;
     public static final int ERROR_RECIPE_NOT_FOUND = 1007;
+    public static final int ERROR_SECURITY_QUESTION_NUMBER_IS_NOT_VALID = 1008;
+    public static final int ERROR_ANSWER_SECURITY_QUESTION_NOT_FOUND = 1009;
 
 //    public static final int IMAGE_UPLOAD_FAILED = 1012;
 

@@ -19,12 +19,17 @@ public class User {
 
     @Column
     private String token;
+    @Column
+    private int securityQuestionNumber;
+    @Column
+    private String answerSecurityQuestion;
 
 
-
-    public User(String username, String token) {
+    public User(String username, String token,int securityQuestionNumber,String answerSecurityQuestion) {
         this.username = username;
         this.token = token;
+        this.securityQuestionNumber=securityQuestionNumber;
+        this.answerSecurityQuestion=answerSecurityQuestion;
 
 
     }
@@ -58,7 +63,19 @@ public class User {
         this.token = token;
     }
 
+    public int getSecurityQuestionNumber() {
+        return securityQuestionNumber;
+    }
 
+    public void setSecurityQuestionNumber(int securityQuestionNumber) {
+        this.securityQuestionNumber = securityQuestionNumber;
+    }
 
+    public String getAnswerSecurityQuestion() {
+        return answerSecurityQuestion;
+    }
 
+    public void setAnswerSecurityQuestion(String answerSecurityQuestion) {
+        this.answerSecurityQuestion = answerSecurityQuestion;
+    }
 }
