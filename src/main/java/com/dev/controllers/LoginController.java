@@ -143,7 +143,19 @@ public class LoginController {
         return basicResponse;
     }
 
-
+@RequestMapping (value = "reset-password")
+    public BasicResponse resetPassword(String username,String newPassword){
+    User user=persist.getUserByUsername(username);
+    BasicResponse basicResponse;
+    if (user!=null){
+        String newToken=utils.createHash(username, newPassword);
+        persist.resetPassword(user,newToken);
+        basicResponse=new BasicResponse(true,null);
+    }else {
+       basicResponse=new BasicResponse(false,ERROR_USER_NOT_FOUND);
+    }
+    return basicResponse;
+    }
 
 
 

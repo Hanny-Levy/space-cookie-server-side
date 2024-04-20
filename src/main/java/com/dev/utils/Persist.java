@@ -111,6 +111,16 @@ public class Persist {
         return foundRecipe;
 
     }
+    public void resetPassword(User user,String newToken){
+        Session session=sessionFactory.openSession();
+        Transaction transaction=session.beginTransaction();
+        user.setToken(newToken);
+        System.out.println(user.getToken());
+        session.saveOrUpdate(user);
+        transaction.commit();
+        System.out.println(user.getToken());
+        session.close();
+    }
 
 
 }
